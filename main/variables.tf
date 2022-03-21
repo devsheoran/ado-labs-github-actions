@@ -9,7 +9,7 @@ variable "location" {
 
 variable "naming_prefix" {
   type    = string
-  default = "adolabs"
+  default = "devlabs"
 }
 
 variable "asp_tier" {
