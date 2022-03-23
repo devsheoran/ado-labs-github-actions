@@ -1,6 +1,6 @@
 name: 'Apply'
 
-on: [push, pull_request]
+on: [workflow_dispatch]
 
 env:
   TF_LOG: INFO
@@ -57,7 +57,6 @@ jobs:
     - name: add-plan-comment
       id: comment
       uses: actions/github-script@v3
-      if: github.event_name == 'pull_request'
       env:
         PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
       with:
@@ -85,7 +84,6 @@ jobs:
 
       # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       env:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
